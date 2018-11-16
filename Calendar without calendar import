@@ -1,0 +1,358 @@
+import java.util.Scanner;
+
+public class JavaApplication1 {
+    
+    public static int spDayInMonth = 0;
+    public static int weeksInQuarter = 0;
+    public static int spDayInSemiYear = 0;
+    public static int cmpWeeks = 0;
+    public static int firstDay = 0;
+    public static String dayWeek = "";
+    
+    public static String days[] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+    public static String months[] = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
+    public static int max[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.println("Enter a year: ");
+        int year = sc.nextInt();
+        
+        System.out.println("Enter the day that the year starts:"
+            + "\n [1]Sunday "
+            + "[2]Monday "
+            + "[3]Tuesday "
+            + "[4]Wednessday "
+            + "[5]Thursday "
+            + "[6]Friday "
+            + "[7]Saturday ");
+        int weekDay = sc.nextInt();
+        
+        firstDay = getWeekDay(weekDay);
+        if(leapYear(year)){
+            max[1] = 29;
+        }
+        
+        int daysMonth = 0;
+        String monthDisplay = "";
+        
+        displayCalendar(year);
+        
+        question1();
+        
+        question2(year);
+        
+        question3(year);
+        
+        question4(year);
+    }
+    
+    public static void question1(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("1. How many specific days are there in a specific month?"
+                + "\n - What is the specific day?"
+            + "\n [1]Sunday "
+            + "[2]Monday "
+            + "[3]Tuesday "
+            + "[4]Wednesday "
+            + "[5]Thursday "
+            + "[6]Friday "
+            + "[7]Saturday ");
+        int weekDay = sc.nextInt();
+        
+        getWeekDay(weekDay);
+        
+        System.out.println(" - What is the specific month?");
+        System.out.println("[0]January  "
+                + "[1]February  "
+                + "[2]March  "
+                + "[3]April  "
+                + "[4]May  "
+                + "[5]June  "
+                + "\n[6] July  "
+                + "[7]August  "
+                + "[8]September  "
+                + "[9]October  "
+                + "[10]November  "
+                + "[11]December ");
+        int month = sc.nextInt();
+        String mon = "";
+        switch(month){
+            case 0: mon = "January";
+                break;
+            case 1: mon = "February";
+                break;
+            case 2: mon = "March";
+                break;
+            case 3: mon = "April";
+                break;
+            case 4: mon = "May";
+                break;
+            case 5: mon = "June";
+                break;
+            case 6: mon = "July";
+                break;
+            case 7: mon = "August";
+                break;
+            case 8: mon = "September";
+                break;
+            case 9: mon = "October";
+                break;
+            case 10: mon = "November";
+                break;
+            case 11: mon = "December";
+                break;
+        }
+        
+        int CurrentDayOfWeek = firstDay;
+        int day = 1;
+        
+        for (int m = 0; m < months.length; m++) {
+            if(CurrentDayOfWeek == 7){
+            	CurrentDayOfWeek = 0;
+            }
+            while (day <= max[m]) {
+                while (CurrentDayOfWeek < days.length && day <= max[m]) {
+                    if (m == month && CurrentDayOfWeek == weekDay) {
+                       spDayInMonth++;
+                    }
+                    day++;
+                    CurrentDayOfWeek++;
+                }
+                if (day - 1 != max[m]) {
+                    CurrentDayOfWeek = 0;
+                }
+            }
+            day = 1;
+        }
+        System.out.println("There are " + spDayInMonth + " " + dayWeek +"s on " + mon +".");
+    }
+    
+    public static void question2(int year){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("2. How many weeks are there in a specific quarter?"
+                + "\n - What is the particular quarter? [1, 2, 3, 4]");
+        int quarter = sc.nextInt();
+        String pQuarter = "";
+        switch(quarter){
+            case 1:
+                pQuarter = "first";
+                break;
+            case 2:
+                pQuarter = "second";
+                break;
+            case 3:
+                pQuarter = "third";
+                break;
+            case 4:
+                pQuarter = "fourth";
+                break;
+        }
+        
+        int startMonth = 0, endMonth = 0;
+        
+        switch(quarter){
+    	case 1:
+    		startMonth = 0;
+    		endMonth = 2;
+    		break;
+    	case 2:
+    		startMonth = 3;
+    		endMonth = 5;
+    		break;
+    	case 3:
+    		startMonth = 6;
+    		endMonth = 8;
+    		break;
+    	case 4:
+    		startMonth = 9;
+    		endMonth = 11;
+                break;
+    	}
+        
+        int CurrentDayOfWeek = firstDay;
+        int day = 1;
+        
+        for (int m = 0; m < months.length; m++) {
+        	if(CurrentDayOfWeek == 7){
+            	CurrentDayOfWeek = 0;
+            }
+            while (day <= max[m]) {
+                while (CurrentDayOfWeek < days.length && day <= max[m]) {
+                    day++;
+                    CurrentDayOfWeek++;
+                }
+                if (day - 1 != max[m]) {
+                    CurrentDayOfWeek = 0;
+                }
+                if(m >= startMonth && m <= endMonth){
+                	weeksInQuarter++;
+                }
+            }
+            day = 1;
+        }
+        
+        System.out.println("There are "+weeksInQuarter+" weeks in the "+pQuarter+" quarter of "+year+".");
+    }
+    
+    public static void question3(int year){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("3. How many specific day are there in a semi-year?"
+                + "\n - What is the specific day?"
+                + "\n [1]Sunday "
+                + "[2]Monday "
+                + "[3]Tuesday "
+                + "[4]Wedsday "
+                + "[5]Thursday "
+                + "[6]Friday "
+                + "[7]Saturday ");
+        int weekDay = sc.nextInt();
+        
+        getWeekDay(weekDay);
+        
+        System.out.println(" - What is the specific semi year? [1,2]: ");
+        int half = sc.nextInt();
+        
+        int startMonth = 0, endMonth = 0;
+        switch (half) {
+            case 1:
+                startMonth = 0;
+                endMonth = 5;
+                break;
+            case 2:
+                startMonth = 6;
+                endMonth = 11;
+                break;
+            default:
+                System.out.print("ERROR.");
+                break;
+        }
+        
+        int CurrentDayOfWeek = firstDay;
+        int day = 1;
+        for (int m = 0; m < months.length; m++) {
+            if(CurrentDayOfWeek == 7){
+            	CurrentDayOfWeek = 0;
+            }
+            while (day <= max[m]) {
+                while (CurrentDayOfWeek < days.length && day <= max[m]) {
+                    if ((m >= startMonth && m <= endMonth) && CurrentDayOfWeek == weekDay) {
+                    	spDayInSemiYear++;
+                    }
+                    day++;
+                    CurrentDayOfWeek++;
+                }
+                if (day - 1 != max[m]) {
+                    CurrentDayOfWeek = 0;
+                }
+            }
+            day = 1;
+        }
+        
+        String semi = "first";
+        if(half == 2){
+            semi = "second";
+        }
+        System.out.println("There are " + spDayInSemiYear + " " + dayWeek + "s on the " + semi +" half of "+year+".");
+    }
+    
+    public static void question4(int year){
+        System.out.println("4. How many complete weeks are there in " + year + "?");
+        
+        int daysCounter = 0;
+        int CurrentDayOfWeek = firstDay;
+        int day = 1;
+        for (int m = 0; m < months.length; m++) {
+            if(CurrentDayOfWeek == 7){
+            	CurrentDayOfWeek = 0;
+            }
+            while (day <= max[m]) {
+                while (CurrentDayOfWeek < days.length && day <= max[m]) {
+                	daysCounter++;
+                    day++;
+                    CurrentDayOfWeek++;
+                }
+                if (day - 1 != max[m]) {
+                    CurrentDayOfWeek = 0;
+                }
+                if(daysCounter == 7){
+                	cmpWeeks++;
+                }
+                daysCounter = 0;
+            }
+            day = 1;
+        }
+        
+        System.out.println("There are "+cmpWeeks+" complete weeks in "+year+".");
+    }
+    
+    public static int getWeekDay(int weekDay){
+        int day = 0;
+        switch (weekDay) {
+            case 1: dayWeek = "Sunday";
+                day=0;
+                break;
+            case 2: dayWeek = "Monday";
+                day=1;
+                break;
+            case 3: dayWeek = "Tuesday";
+                day=2;
+                break;
+            case 4: dayWeek = "Wednesday";
+                day=3;
+                break;
+            case 5: dayWeek = "Thursday";
+                day=4;
+                break;
+            case 6: dayWeek = "Friday";
+                day=5;
+                break;
+            case 7: dayWeek = "Saturday";
+                day=6;
+                break;
+            default:
+                System.out.println("Wrong input"
+                        + "\n Weekday would start on Monday");
+                break;
+        }
+        return day;
+    }
+    
+    public static void displayCalendar(int year){
+        int CurrentDayOfWeek = firstDay;
+        int day = 1;
+        
+        System.out.println();
+        for (int m = 0; m < months.length; m++) {
+            System.out.printf("%15s %d  \n",months[m] ,year);
+            for (String day1 : days) {
+                System.out.printf("%4s", day1);
+            }
+            System.out.println();
+            if(CurrentDayOfWeek == 7){
+            	CurrentDayOfWeek = 0;
+            }
+            for (int i = 0; i < CurrentDayOfWeek; i++) {
+                System.out.printf("%4s", "");
+            }
+            while (day <= max[m]) {
+                while (CurrentDayOfWeek < days.length && day <= max[m]) {
+                    System.out.printf("%4s", day);
+                    day++;
+                    CurrentDayOfWeek++;
+                }
+                if (day-1 != max[m]) {
+                    CurrentDayOfWeek = 0;
+                }
+                System.out.println();
+            }
+            System.out.println();
+            day = 1;
+        }
+    }
+    
+    static boolean leapYear(int year) {
+        return ((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0));
+    }
+}
