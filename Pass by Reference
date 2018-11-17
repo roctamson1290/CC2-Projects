@@ -37,9 +37,9 @@ public class PassByReference {
 
 Output:
 Enter a pesos
-25          //input
-The entered value is 25.0 pesos
+500          //input
+The entered value is 500.0 pesos
 The converted currencies are:
-52.75 Yen
-0.475 US Dollar
-0.35000000000000003 UK Pound
+1055.0 Yen
+9.5 US Dollar
+7.0 UK Pound
