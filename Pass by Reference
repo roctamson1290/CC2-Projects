@@ -34,3 +34,12 @@ public class PassByReference {
         return arr;
     }
 }
+
+Output:
+Enter a pesos
+25          //input
+The entered value is 25.0 pesos
+The converted currencies are:
+52.75 Yen
+0.475 US Dollar
+0.35000000000000003 UK Pound
