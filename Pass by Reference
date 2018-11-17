@@ -1,0 +1,36 @@
+package passbyreference;
+
+public class PassByReference {
+    public static void main(String[] args) {
+        java.util.Scanner sc = new java.util.Scanner(System.in);
+        
+        System.out.println("Enter a pesos");
+        double pesos = sc.nextDouble();
+        
+        System.out.println("The entered value is "+pesos+" pesos");
+        
+        double yen = 0;
+        double usDollar = 0;
+        double ukPound = 0;
+        
+        double[] a = moneyConverter(yen,usDollar,ukPound);
+        
+        System.out.println("The converted currencies are:");
+        System.out.println(a[0]*pesos+" Yen");
+        System.out.println(a[1]*pesos+" US Dollar");
+        System.out.println(a[2]*pesos+" UK Pound");
+    }
+    
+    public static double[] moneyConverter(double yen,double usDollar,double ukPound){
+        yen = 2.11;
+        usDollar =0.019;
+        ukPound = 0.014;
+        
+        double arr[]=new double[3];
+        arr[0]=yen;
+        arr[1]=usDollar;
+        arr[2]=ukPound;
+        
+        return arr;
+    }
+}
